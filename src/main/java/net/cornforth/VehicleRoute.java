@@ -24,6 +24,7 @@ public class VehicleRoute extends RouteBuilder {
                 .to("validator:addVehicle.xsd")
                 .to("xslt:vehicle-to-asset.xslt")
                 .to("validator:addAsset.xsd")
+                .bean(MockService.class)
             .doCatch(SchemaValidationException.class)
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, simple("400"))
                 .log("${exception.message}")
