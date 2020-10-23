@@ -22,6 +22,7 @@ public class VehicleRoute extends RouteBuilder {
                 .convertBodyTo(java.lang.String.class, "UTF-8")
                 .log("add")
                 .to("validator:addVehicle.xsd")
+                .to("xslt:vehicle-to-asset.xslt")
             .doCatch(SchemaValidationException.class)
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, simple("400"))
                 .log("${exception.message}")
