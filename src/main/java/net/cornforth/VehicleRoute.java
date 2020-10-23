@@ -27,10 +27,10 @@ public class VehicleRoute extends RouteBuilder {
                 .bean(MockService.class)
             .doCatch(SchemaValidationException.class)
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, simple("400"))
-                .log("${exception.message}")
+                .bean(ErrorHandler.class)
             .doCatch(Exception.class)
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, simple("500"))
-                .log("${exception.message}")
+                .bean(ErrorHandler.class)
             .end();
         ;
     }
